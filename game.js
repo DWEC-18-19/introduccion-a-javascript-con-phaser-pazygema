@@ -15,24 +15,6 @@ var winningScore = 100;
 // add collectable items to the game
 function addItems() {
   items = game.add.physicsGroup();
-  createItem(375, 300, 'coin');
-}
-// define variables
-var game;
-var player;
-var badges;
-var items;
-var cursors;
-var jumpButton;
-var text;
-var winningMessage;
-var won = false;
-var currentScore = 0;
-var winningScore = 100;
-
-// add collectable items to the game
-function addItems() {
-  items = game.add.physicsGroup();
   createItem(220, 500, 'coin');
   createItem(600, 500, 'coin');
 
