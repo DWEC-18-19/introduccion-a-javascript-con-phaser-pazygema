@@ -43,10 +43,10 @@ function addPlatforms() {
   platforms.create(450, 550, 'platform');
   platforms.setAll('body.immovable', true);
 
-  platforms.create(270, 450, 'platform');
+  platforms.create(270, 450, 'platform2');
   platforms.setAll('body.immovable', true);
 
-  platforms.create(400, 350, 'platform');
+  platforms.create(400, 350, 'platform2');
   platforms.setAll('body.immovable', true);
 
   platforms.create(50, 270, 'platform');
@@ -58,7 +58,7 @@ function addPlatforms() {
   platforms.create(150, 220, 'platform');
   platforms.setAll('body.immovable', true);
 
-  platforms.create(500, 150, 'platform');
+  platforms.create(500, 150, 'platform2');
   platforms.setAll('body.immovable', true);
 
   platforms.create(250, 100, 'platform');
@@ -108,7 +108,8 @@ window.onload = function () {
     
     //Load images
     game.load.image('platform', 'platform_1.png');
-    
+    game.load.image('platform2', 'platform_2.png');
+
     //Load spritesheets
     game.load.spritesheet('player', 'chalkers.png', 48, 62);
     game.load.spritesheet('coin', 'coin.png', 36, 44);
@@ -174,13 +175,6 @@ window.onload = function () {
 
 };
 
-// add platforms to the game
-function addPlatforms() {
-  platforms = game.add.physicsGroup();
-  platforms.create(450, 150, 'platform');
-  platforms.setAll('body.immovable', true);
-}
-
 // create a single animated item and add to screen
 function createItem(left, top, image) {
   var item = items.create(left, top, image);
@@ -221,7 +215,8 @@ window.onload = function () {
     
     //Load images
     game.load.image('platform', 'platform_1.png');
-    
+    game.load.image('platform2', 'platform_2.png');
+
     //Load spritesheets
     game.load.spritesheet('player', 'chalkers.png', 48, 62);
     game.load.spritesheet('coin', 'coin.png', 36, 44);
