@@ -63,6 +63,9 @@ function addPlatforms() {
 
   platforms.create(250, 100, 'platform');
   platforms.setAll('body.immovable', true);
+
+  platforms.create(75, 50, 'platform2');
+  platforms.setAll('body.immovable', true);
 }
 
 // create a single animated item and add to screen
