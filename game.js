@@ -16,20 +16,25 @@ var winningScore = 100;
 function addItems() {
   items = game.add.physicsGroup();
   createItem(220, 500, 'coin');
+  createItem(370, 500, 'poison');
   createItem(600, 500, 'coin');
 
-  createItem(400, 400, 'coin');
+  createItem(400, 415, 'coin');
 
-  createItem(500, 300, 'coin');
+  createItem(100, 375, 'poison');
 
-  createItem(100, 220, 'coin');
-  createItem(550, 220, 'coin');
+  createItem(500, 315, 'coin');
 
-  createItem(220, 170, 'coin');
+  createItem(100, 235, 'coin');
+  createItem(650, 235, 'coin');
 
-  createItem(520, 100, 'coin');
+  createItem(220, 185, 'coin');
 
-  createItem(375, 50, 'coin');
+  createItem(520, 115, 'coin');
+
+  createItem(345, 95, 'poison');
+
+  createItem(220, 15, 'star');
 }
 
 
@@ -43,28 +48,28 @@ function addPlatforms() {
   platforms.create(450, 550, 'platform');
   platforms.setAll('body.immovable', true);
 
-  platforms.create(270, 450, 'platform2');
+  platforms.create(270, 465, 'platform2');
   platforms.setAll('body.immovable', true);
 
-  platforms.create(400, 350, 'platform2');
+  platforms.create(390, 365, 'platform2');
   platforms.setAll('body.immovable', true);
 
-  platforms.create(50, 270, 'platform');
+  platforms.create(50, 285, 'platform');
   platforms.setAll('body.immovable', true);
 
-  platforms.create(550, 270, 'platform');
+  platforms.create(650, 285, 'platform');
   platforms.setAll('body.immovable', true);
 
-  platforms.create(150, 220, 'platform');
+  platforms.create(150, 235, 'platform');
   platforms.setAll('body.immovable', true);
 
-  platforms.create(500, 150, 'platform2');
+  platforms.create(500, 165, 'platform2');
   platforms.setAll('body.immovable', true);
 
-  platforms.create(250, 100, 'platform');
+  platforms.create(220, 135, 'platform');
   platforms.setAll('body.immovable', true);
 
-  platforms.create(75, 50, 'platform2');
+  platforms.create(75, 65, 'platform2');
   platforms.setAll('body.immovable', true);
 }
 
@@ -87,6 +92,7 @@ function createBadge() {
 function itemHandler(player, item) {
   item.kill();
   currentScore = currentScore + 10;
+  
   if (currentScore === winningScore) {
       createBadge();
   }
@@ -113,113 +119,10 @@ window.onload = function () {
     //Load spritesheets
     game.load.spritesheet('player', 'chalkers.png', 48, 62);
     game.load.spritesheet('coin', 'coin.png', 36, 44);
-    game.load.spritesheet('badge', 'badge.png', 42, 54);
-  }
 
-  // initial game set up
-  function create() {
-    player = game.add.sprite(50, 600, 'player');
-    player.animations.add('walk');
-    player.anchor.setTo(0.5, 1);
-    game.physics.arcade.enable(player);
-    player.body.collideWorldBounds = true;
-    player.body.gravity.y = 500;
+    game.load.spritesheet('star', 'star.png', 32, 32);
+    game.load.spritesheet('poison', 'poison.png', 32, 32);
 
-    addItems();
-    addPlatforms();
-        
-    cursors = game.input.keyboard.createCursorKeys();
-    jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-    text = game.add.text(16, 16, "SCORE: " + currentScore, { font: "bold 24px Arial", fill: "white" });
-    winningMessage = game.add.text(game.world.centerX, 275, "", { font: "bold 48px Arial", fill: "white" });
-    winningMessage.anchor.setTo(0.5, 1);
-  }
-
-  // while the game is running
-  function update() {
-    text.text = "SCORE: " + currentScore;
-    game.physics.arcade.collide(player, platforms);
-    game.physics.arcade.overlap(player, items, itemHandler);
-    game.physics.arcade.overlap(player, badges, badgeHandler);
-    player.body.velocity.x = 0;
-
-    // is the left cursor key presssed?
-    if (cursors.left.isDown) {
-      player.animations.play('walk', 10, true);
-      player.body.velocity.x = -300;
-      player.scale.x = - 1;
-    }
-    // is the right cursor key pressed?
-    else if (cursors.right.isDown) {
-      player.animations.play('walk', 10, true);
-      player.body.velocity.x = 300;
-      player.scale.x = 1;
-    }
-    // player doesn't move
-    else {
-      player.animations.stop();
-    }
-    
-    if (jumpButton.isDown && (player.body.onFloor() || player.body.touching.down)) {
-      player.body.velocity.y = -400;
-    }
-    // when the player winw the game
-    if (won) {
-      winningMessage.text = "YOU WIN!!!";
-    }
-  }
-
-  function render() {
-
-  }
-
-};
-
-// create a single animated item and add to screen
-function createItem(left, top, image) {
-  var item = items.create(left, top, image);
-  item.animations.add('spin');
-  item.animations.play('spin', 10, true);
-}
-
-// create the winning badge and add to screen
-function createBadge() {
-  badges = game.add.physicsGroup();
-  var badge = badges.create(750, 400, 'badge');
-  badge.animations.add('spin');
-  badge.animations.play('spin', 10, true);
-}
-
-// when the player collects an item on the screen
-function itemHandler(player, item) {
-  item.kill();
-  currentScore = currentScore + 10;
-  if (currentScore === winningScore) {
-      createBadge();
-  }
-}
-
-// when the player collects the badge at the end of the game
-function badgeHandler(player, badge) {
-  badge.kill();
-  won = true;
-}
-
-// setup game when the web page loads
-window.onload = function () {
-  game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update, render: render });
-  
-  // before the game begins
-  function preload() {
-    game.stage.backgroundColor = '#5db1ad';
-    
-    //Load images
-    game.load.image('platform', 'platform_1.png');
-    game.load.image('platform2', 'platform_2.png');
-
-    //Load spritesheets
-    game.load.spritesheet('player', 'chalkers.png', 48, 62);
-    game.load.spritesheet('coin', 'coin.png', 36, 44);
     game.load.spritesheet('badge', 'badge.png', 42, 54);
   }
 
