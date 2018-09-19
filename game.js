@@ -10,6 +10,7 @@ var text;
 var winningMessage;
 var won = false;
 var currentScore = 0;
+var numVidas = 3;
 var winningScore = 100;
 
 // add collectable items to the game
@@ -95,7 +96,7 @@ function itemHandler(player, item) {
     currentScore = currentScore + 10;
   }
   else if(item.key==='poison'){
-    currentScore = currentScore - 5;
+    numVidas --;
   }
   else if(item.key==='star'){
     currentScore = currentScore + 20;
@@ -117,14 +118,15 @@ window.onload = function () {
   
   // before the game begins
   function preload() {
-    game.stage.backgroundColor = '#5db1ad';
-    
+    //game.stage.backgroundColor = '#5db1ad';
+    game.load.image('fondo', 'plataformas.png');
+
     //Load images
     game.load.image('platform', 'platform_1.png');
     game.load.image('platform2', 'platform_2.png');
 
     //Load spritesheets
-    game.load.spritesheet('player', 'chalkers.png', 48, 62);
+    game.load.spritesheet('player', 'mikethefrog.png', 32, 32);
     game.load.spritesheet('coin', 'coin.png', 36, 44);
 
     game.load.spritesheet('star', 'star.png', 32, 32);
@@ -135,6 +137,8 @@ window.onload = function () {
 
   // initial game set up
   function create() {
+    var background = game.add.sprite(0, 0, 'fondo', 'background');
+
     player = game.add.sprite(50, 600, 'player');
     player.animations.add('walk');
     player.anchor.setTo(0.5, 1);
@@ -148,6 +152,7 @@ window.onload = function () {
     cursors = game.input.keyboard.createCursorKeys();
     jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
     text = game.add.text(16, 16, "SCORE: " + currentScore, { font: "bold 24px Arial", fill: "white" });
+    textVidas = game.add.text(690, 16, "LIVES: " + numVidas, { font: "bold 24px Arial", fill: "white" });
     winningMessage = game.add.text(game.world.centerX, 275, "", { font: "bold 48px Arial", fill: "white" });
     winningMessage.anchor.setTo(0.5, 1);
   }
@@ -155,6 +160,7 @@ window.onload = function () {
   // while the game is running
   function update() {
     text.text = "SCORE: " + currentScore;
+    textVidas.text = "LIVES: " + numVidas;
     game.physics.arcade.collide(player, platforms);
     game.physics.arcade.overlap(player, items, itemHandler);
     game.physics.arcade.overlap(player, badges, badgeHandler);
@@ -183,6 +189,9 @@ window.onload = function () {
     // when the player winw the game
     if (won) {
       winningMessage.text = "YOU WIN!!!";
+    }
+    if(numVidas==0){
+      winningMessage.text = "YOU DEAD :P";
     }
   }
 
