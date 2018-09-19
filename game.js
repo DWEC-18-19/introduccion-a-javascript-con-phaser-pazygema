@@ -13,29 +13,34 @@ var currentScore = 0;
 var numVidas = 3;
 var winningScore = 100;
 
+function aleat(){
+  var min = 12; var max=550;
+  return Math.random() * (max - min) + min;
+}
+
 // add collectable items to the game
 function addItems() {
   items = game.add.physicsGroup();
-  createItem(220, 500, 'coin');
-  createItem(370, 500, 'poison');
-  createItem(600, 500, 'coin');
+  createItem(aleat(), aleat(), 'coin');
+  createItem(aleat(), aleat(), 'poison');
+  createItem(aleat(), aleat(), 'coin');
 
-  createItem(400, 415, 'coin');
+  createItem(aleat(), aleat(), 'coin');
 
-  createItem(100, 375, 'poison');
+  createItem(aleat(), aleat(), 'poison');
 
-  createItem(500, 315, 'coin');
+  createItem(aleat(), aleat(), 'coin');
 
-  createItem(100, 235, 'coin');
-  createItem(650, 235, 'coin');
+  createItem(aleat(), aleat(), 'coin');
+  createItem(aleat(), aleat(), 'coin');
 
-  createItem(220, 185, 'coin');
+  createItem(aleat(), aleat(), 'coin');
 
-  createItem(520, 115, 'coin');
+  createItem(aleat(), aleat(), 'coin');
 
-  createItem(345, 95, 'poison');
+  createItem(aleat(), aleat(), 'poison');
 
-  createItem(220, 15, 'star');
+  createItem(aleat(), aleat(), 'star');
 }
 
 
